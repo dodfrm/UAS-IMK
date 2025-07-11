@@ -1,42 +1,77 @@
-import FooterSection from "components/footer";
-import {  Navbar,   NavbarBrand,   NavbarContent,   NavbarItem,   NavbarMenuToggle,  NavbarMenu,  NavbarMenuItem} from "@heroui/react";
-import logoDark from "./logo-dark.svg";
-import logoLight from "./logo-light.svg";
+
 import { HeroHeader } from "~/components/header";
+import FooterSection from "components/footer";
 
 export function Welcome() {
   return (
     <>
       <HeroHeader />
-      <div className="relative w-full pt-24">
+      <div className="relative w-full pt-24 pb-16"> {/* Added padding-bottom for footer spacing */}
         <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-          <header className="flex flex-col items-center gap-9">
-            <div className="w-[500px] max-w-[100vw] p-4">
-              <img
-                src={logoLight}
-                alt="React Router"
-                className="block w-full dark:hidden"
-              />
-              <img
-                src={logoDark}
-                alt="React Router"
-                className="hidden w-full dark:block"
-              />
+          {/* Hero Section for BSI University */}
+          <header className="flex flex-col items-center gap-6 text-center px-4">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+              Welcome to <span className="text-primary">BSI University</span>
+            </h1>
+            <p className="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-2xl">
+              Empowering Minds, Shaping Futures. Discover excellence in education, research, and community.
+            </p>
+            <div className="mt-8 flex gap-4">
+              <a
+                href="/admissions" // Placeholder link for admissions
+                className="px-6 py-3 bg-primary text-primary-foreground rounded-md text-lg font-medium hover:bg-primary/90 transition-colors"
+              >
+                Apply Now
+              </a>
+              <a
+                href="/about" // Placeholder link for about us
+                className="px-6 py-3 border border-gray-300 text-gray-800 dark:text-gray-200 rounded-md text-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                Learn More
+              </a>
             </div>
           </header>
-          <div className="max-w-[300px] w-full space-y-6 px-4">
+
+          {/* Key Sections Overview */}
+          <div className="max-w-5xl w-full px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">About BSI</h2>
+              <p className="text-gray-700 dark:text-gray-300">
+                A leading institution dedicated to providing high-quality education and fostering innovation. Our commitment to academic excellence ensures a vibrant learning environment.
+              </p>
+              <a href="/about" className="mt-4 inline-block text-primary hover:underline">Read More &rarr;</a>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Academic Programs</h2>
+              <p className="text-gray-700 dark:text-gray-300">
+                Explore our diverse range of undergraduate and postgraduate programs, designed to equip students with the knowledge and skills for future success.
+              </p>
+              <a href="/programs" className="mt-4 inline-block text-primary hover:underline">View Programs &rarr;</a>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Admissions</h2>
+              <p className="text-gray-700 dark:text-gray-300">
+                Begin your journey at BSI University. Find information on application requirements, deadlines, and financial aid options.
+              </p>
+              <a href="/admissions" className="mt-4 inline-block text-primary hover:underline">Apply Now &rarr;</a>
+            </div>
+          </div>
+
+          {/* Quick Links / Resources for University */}
+          <div className="max-w-[400px] w-full space-y-6 px-4">
             <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
-              <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
-                What&apos;s next?
+              <p className="leading-6 text-gray-700 dark:text-gray-200 text-center font-semibold">
+                Quick Links
               </p>
               <ul>
-                {resources.map(({ href, text, icon }) => (
+                {universityResources.map(({ href, text, icon }) => (
                   <li key={href}>
                     <a
                       className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
                       href={href}
-                      target="_blank"
-                      rel="noreferrer"
+                      // Assuming these are internal links, remove target="_blank" and rel="noreferrer"
                     >
                       {icon}
                       {text}
@@ -53,43 +88,53 @@ export function Welcome() {
   );
 }
 
-const resources = [
+// Updated resources for a university website
+const universityResources = [
   {
-    href: "https://reactrouter.com/docs",
-    text: "React Router Docs",
+    href: "/student-portal",
+    text: "Student Portal",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="20"
-        viewBox="0 0 20 20"
+        viewBox="0 0 24 24"
         fill="none"
         className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
       >
-        <path
-          d="M9.99981 10.0751V9.99992M17.4688 17.4688C15.889 19.0485 11.2645 16.9853 7.13958 12.8604C3.01467 8.73546 0.951405 4.11091 2.53116 2.53116C4.11091 0.951405 8.73546 3.01467 12.8604 7.13958C16.9853 11.2645 19.0485 15.889 17.4688 17.4688ZM2.53132 17.4688C0.951566 15.8891 3.01483 11.2645 7.13974 7.13963C11.2647 3.01471 15.8892 0.951453 17.469 2.53121C19.0487 4.11096 16.9854 8.73551 12.8605 12.8604C8.73562 16.9853 4.11107 19.0486 2.53132 17.4688Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4.5V19.5M12 4.5c1.5 0 2.25 0 2.89.283c.64.282 1.139.782 1.422 1.422c.283.64.283 1.35.283 2.89V19.5m-3 0c-1.5 0-2.25 0-2.89-.283c-.64-.282-1.139-.782-1.422-1.422c-.283-.64-.283-1.35-.283-2.89V4.5m3 15V4.5c0-1.5-.75-2.25-2.25-2.25S7.5 3 7.5 4.5v15c0 1.5.75 2.25 2.25 2.25s2.25-.75 2.25-2.25Z" />
       </svg>
     ),
   },
   {
-    href: "https://rmx.as/discord",
-    text: "Join Discord",
+    href: "/faculty-staff",
+    text: "Faculty & Staff Directory",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="20"
-        viewBox="0 0 24 20"
+        viewBox="0 0 24 24"
         fill="none"
         className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
       >
-        <path
-          d="M15.0686 1.25995L14.5477 1.17423L14.2913 1.63578C14.1754 1.84439 14.0545 2.08275 13.9422 2.31963C12.6461 2.16488 11.3406 2.16505 10.0445 2.32014C9.92822 2.08178 9.80478 1.84975 9.67412 1.62413L9.41449 1.17584L8.90333 1.25995C7.33547 1.51794 5.80717 1.99419 4.37748 2.66939L4.19 2.75793L4.07461 2.93019C1.23864 7.16437 0.46302 11.3053 0.838165 15.3924L0.868838 15.7266L1.13844 15.9264C2.81818 17.1714 4.68053 18.1233 6.68582 18.719L7.18892 18.8684L7.50166 18.4469C7.96179 17.8268 8.36504 17.1824 8.709 16.4944L8.71099 16.4904C10.8645 17.0471 13.128 17.0485 15.2821 16.4947C15.6261 17.1826 16.0293 17.8269 16.4892 18.4469L16.805 18.8725L17.3116 18.717C19.3056 18.105 21.1876 17.1751 22.8559 15.9238L23.1224 15.724L23.1528 15.3923C23.5873 10.6524 22.3579 6.53306 19.8947 2.90714L19.7759 2.73227L19.5833 2.64518C18.1437 1.99439 16.6386 1.51826 15.0686 1.25995ZM16.6074 10.7755L16.6074 10.7756C16.5934 11.6409 16.0212 12.1444 15.4783 12.1444C14.9297 12.1444 14.3493 11.6173 14.3493 10.7877C14.3493 9.94885 14.9378 9.41192 15.4783 9.41192C16.0471 9.41192 16.6209 9.93851 16.6074 10.7755ZM8.49373 12.1444C7.94513 12.1444 7.36471 11.6173 7.36471 10.7877C7.36471 9.94885 7.95323 9.41192 8.49373 9.41192C9.06038 9.41192 9.63892 9.93712 9.6417 10.7815C9.62517 11.6239 9.05462 12.1444 8.49373 12.1444Z"
-          strokeWidth="1.5"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17.25 18a.75.75 0 0 0 .75-.75v-10.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v10.5c0 .414.336.75.75.75h10.5Zm-10.5-12h10.5m-10.5 0c-.414 0-.75.336-.75.75v-.75a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 .75.75v.75c0-.414-.336-.75-.75-.75H6.75Zm.75 1.5h9c.414 0 .75.336.75.75a.75.75 0 0 1-.75.75h-9a.75.75 0 0 1-.75-.75c0-.414.336-.75.75-.75Zm0 3.75h9m-9 3h9m-9 3h9M12 4.5h.008V4.5h-.008ZM12 4.5h.008V4.5h-.008Z" />
+      </svg>
+    ),
+  },
+  {
+    href: "/library",
+    text: "University Library",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4.5h.008V4.5h-.008Zm0 3h.008V7.5h-.008Zm0 3h.008V10.5h-.008Zm0 3h.008v-3h-.008Zm0 3h.008v-3h-.008Zm0 3h.008v-3h-.008ZM21 9a.75.75 0 0 0-.75-.75H3.75a.75.75 0 0 0-.75.75v9c0 .414.336.75.75.75H20.25a.75.75 0 0 0 .75-.75V9ZM3 9h18M6 3.75h12c.414 0 .75.336.75.75s-.336.75-.75.75H6c-.414 0-.75-.336-.75-.75s.336-.75.75-.75Z" />
       </svg>
     ),
   },
