@@ -46,7 +46,7 @@ export default function App() {
   return (
   <>
     <HeroHeader />
-    <main className="pt-18">
+    <main className="min-h-screen pt-20">
       <Outlet />
     </main>
     <FooterSection></FooterSection>
