@@ -6,8 +6,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { HeroHeader } from "~/components/header";
-import FooterSection from "components/footer";
 import type { Route } from "./+types/root";
 import "./app.css";
 import { AlertTriangle, Home, RefreshCw, ArrowLeft } from "lucide-react";
@@ -48,11 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <>
-      <HeroHeader />
-      <main className="min-h-screen pt-20">
         <Outlet />
-      </main>
-      <FooterSection />
     </>
   );
 }

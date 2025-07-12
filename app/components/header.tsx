@@ -10,116 +10,39 @@ import {
 } from "~/components/ui/collapsible";
 import {
   NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
+  NavigationMenuItem,
   NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
 import { Button } from "~/components/ui/button";
 
-const menuItems = [
+const tentangItems = [
   {
-    name: "Tentang UBSI",
-    children: [
-      {
-        name: "Profil",
-        href: "/profil",
-        description: "Sejarah dan visi misi Universitas BSI",
-      },
-      {
-        name: "Peraturan",
-        href: "/peraturan",
-        description: "Pedoman dan regulasi akademik",
-      },
-      {
-        name: "Unit Bagian",
-        href: "/unit-bagian",
-        description: "Struktur organisasi dan unit kerja",
-      },
-    ],
+    title: "Profil",
+    href: "/profil",
+    description: "Sejarah dan visi misi Universitas BSI",
   },
   {
-    name: "Fakultas",
-    children: [
-      {
-        name: "Teknik & Informatika",
-        href: "/fakultas/teknik",
-        description: "Program studi bidang teknologi dan rekayasa",
-      },
-      {
-        name: "Ekonomi & Bisnis",
-        href: "/fakultas/ekonomi",
-        description: "Program studi bidang ekonomi dan manajemen",
-      },
-      {
-        name: "Komunikasi & Bahasa",
-        href: "/fakultas/komunikasi",
-        description: "Program studi bidang komunikasi dan linguistik",
-      },
-    ],
+    title: "Peraturan",
+    href: "/peraturan",
+    description: "Pedoman dan regulasi akademik",
   },
   {
-    name: "PSDKU",
-    children: [
-      {
-        name: "Profil",
-        href: "/profil",
-        description: "Sejarah dan visi misi Universitas BSI",
-      },
-      {
-        name: "Peraturan",
-        href: "/peraturan",
-        description: "Pedoman dan regulasi akademik",
-      },
-      {
-        name: "Unit Bagian",
-        href: "/unit-bagian",
-        description: "Struktur organisasi dan unit kerja",
-      },
-    ],
+    title: "Unit Bagian",
+    href: "/unit-bagian",
+    description: "Struktur organisasi dan unit kerja",
   },
-  { name: "Tentang", href: "/tentang" },
 ];
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a"> & {
-    title: string;
-    children?: React.ReactNode;
-    href: string;
-  }
->(({ className, title, children, href, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <NavLink
-          ref={ref}
-          to={href}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          {children && (
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-              {children}
-            </p>
-          )}
-        </NavLink>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-
-ListItem.displayName = "ListItem";
 
 export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
+  const [openCollapsible, setOpenCollapsible] = React.useState<string | null>(
+    null
+  );
   const { scrollYProgress } = useScroll();
 
   React.useEffect(() => {
@@ -129,10 +52,14 @@ export const HeroHeader = () => {
     return () => unsubscribe();
   }, [scrollYProgress]);
 
+  const toggleCollapsible = (id: string) => {
+    setOpenCollapsible(openCollapsible === id ? null : id);
+  };
+
   return (
     <header>
       <nav
-        data-state={menuState && "active"}
+        data-state={menuState ? "active" : undefined}
         className={cn(
           "fixed z-20 w-full transition-colors duration-150 bg-background/50 backdrop-blur-3xl border-b bg-background/80"
         )}
@@ -158,107 +85,127 @@ export const HeroHeader = () => {
                 aria-label={menuState ? "Close Menu" : "Open Menu"}
                 className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
               >
-                <Menu className="in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 in-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
-                <X className="in-data-[state=active]:rotate-0 in-data-[state=active]:scale-100 in-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
+                {menuState ? (
+                  <X className="m-auto size-6" />
+                ) : (
+                  <Menu className="m-auto size-6" />
+                )}
               </button>
 
               {/* Desktop Menu */}
               <div className="hidden lg:block">
-                <NavigationMenu>
+                <NavigationMenu viewport={false}>
                   <NavigationMenuList>
-                    {menuItems.map((item, index) => (
-                      <NavigationMenuItem key={index}>
-                        {item.children ? (
-                          <>
-                            <NavigationMenuTrigger className="text-sm">
-                              {item.name}
-                            </NavigationMenuTrigger>
-                            <NavigationMenuContent>
-                              <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-1">
-                                {item.children.map((child, ci) => (
-                                  <ListItem
-                                    key={ci}
-                                    href={child.href}
-                                    title={child.name}
-                                  >
-                                    {child.description}
-                                  </ListItem>
-                                ))}
-                              </ul>
-                            </NavigationMenuContent>
-                          </>
-                        ) : (
-                          <NavigationMenuLink
-                            asChild
-                            className={navigationMenuTriggerStyle()}
-                          >
-                            <NavLink to={item.href} className="text-sm">
-                              {item.name}
-                            </NavLink>
-                          </NavigationMenuLink>
-                        )}
-                      </NavigationMenuItem>
-                    ))}
+                    {/* Tentang */}
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>
+                        Tentang UBSI
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid w-[350px] gap-4 p-4">
+                          {tentangItems.map((item) => (
+                            <ListItem
+                              key={item.title}
+                              title={item.title}
+                              href={item.href}
+                            >
+                              {item.description}
+                            </ListItem>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+
+                    {/* Fakultas */}
+                    <NavigationMenuItem>
+                      <NavigationMenuLink
+                        asChild
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <NavLink to="/fakultas">Fakultas</NavLink>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
                   </NavigationMenuList>
                 </NavigationMenu>
               </div>
             </div>
 
             {/* Mobile Menu */}
-            <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
-              <div className="lg:hidden">
-                <ul className="space-y-6 text-base">
-                  {menuItems.map((item, index) =>
-                    item.children ? (
-                      <Collapsible key={index}>
-                        <CollapsibleTrigger className="flex w-full items-center justify-between text-left font-medium">
-                          <span>{item.name}</span>
-                          <ChevronDown className="h-4 w-4 transition-transform data-[state=open]:rotate-180" />
-                        </CollapsibleTrigger>
-                        <CollapsibleContent>
-                          <ul className="mt-2 space-y-2 pl-4 text-sm text-muted-foreground">
-                            {item.children.map((child, ci) => (
-                              <li key={ci}>
-                                <NavLink
-                                  to={child.href}
-                                  className="block py-2 hover:text-foreground transition-colors"
-                                  onClick={() => setMenuState(false)}
-                                >
-                                  {child.name}
-                                </NavLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </CollapsibleContent>
-                      </Collapsible>
-                    ) : (
-                      <li key={index}>
-                        <NavLink
-                          to={item.href}
-                          className="block py-2 hover:text-foreground transition-colors"
-                          onClick={() => setMenuState(false)}
-                        >
-                          {item.name}
-                        </NavLink>
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
+            <div
+              className={cn(
+                "fixed inset-0 top-[72px] z-10 h-[calc(100vh-72px)] w-full bg-background/95 backdrop-blur-lg transition-all duration-300 ease-in-out lg:hidden",
+                menuState
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-full opacity-0"
+              )}
+            >
+              <div className="container mx-auto px-4 py-6">
+                {/* Tentang UBSI Collapsible */}
+                <Collapsible
+                  open={openCollapsible === "tentang"}
+                  onOpenChange={() => toggleCollapsible("tentang")}
+                  className="w-full space-y-2"
+                >
+                  <CollapsibleTrigger className="flex w-full items-center justify-between py-3 text-lg font-medium">
+                    Tentang UBSI
+                    <ChevronDown
+                      className={cn(
+                        "h-5 w-5 transition-transform duration-200",
+                        openCollapsible === "tentang" ? "rotate-180" : ""
+                      )}
+                    />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="space-y-2 pl-4">
+                    {tentangItems.map((item) => (
+                      <NavLink
+                        key={item.title}
+                        to={item.href}
+                        className="block py-2 text-muted-foreground hover:text-foreground"
+                        onClick={() => setMenuState(false)}
+                      >
+                        <div className="font-medium">{item.title}</div>
+                        <div className="text-sm">{item.description}</div>
+                      </NavLink>
+                    ))}
+                  </CollapsibleContent>
+                </Collapsible>
 
-              {/* Auth Buttons */}
-              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:ml-6">
-                <Button asChild variant="outline" size="lg">
-                  <NavLink to="/login">
-                    <span>Masuk</span>
-                  </NavLink>
-                </Button>
-                <Button asChild size="lg">
-                  <NavLink to="/signup">
-                    <span>Daftar</span>
-                  </NavLink>
-                </Button>
+                {/* Fakultas */}
+                <NavLink 
+                  to="/fakultas"
+                    className="block py-3 text-lg font-medium hover:text-foreground"
+                    onClick={() => setMenuState(false)}
+                >
+                  Fakultas
+                </NavLink>
+
+                <div className="mt-8 flex flex-col space-y-4">
+                  <Button asChild variant="outline" size="lg">
+                    <NavLink to="/login" onClick={() => setMenuState(false)}>
+                      <span>Masuk</span>
+                    </NavLink>
+                  </Button>
+                  <Button asChild size="lg">
+                    <NavLink to="/register" onClick={() => setMenuState(false)}>
+                      <span>Daftar</span>
+                    </NavLink>
+                  </Button>
+                </div>
               </div>
+            </div>
+
+            {/* Desktop Auth Buttons */}
+            <div className="hidden lg:flex items-center gap-4">
+              <Button asChild variant="outline" size="lg">
+                <NavLink to="/login">
+                  <span>Masuk</span>
+                </NavLink>
+              </Button>
+              <Button asChild size="lg">
+                <NavLink to="/register">
+                  <span>Daftar</span>
+                </NavLink>
+              </Button>
             </div>
           </div>
         </div>
@@ -266,3 +213,21 @@ export const HeroHeader = () => {
     </header>
   );
 };
+
+function ListItem({
+  title,
+  children,
+  href,
+  ...props
+}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
+  return (
+    <li {...props}>
+      <NavigationMenuLink asChild>
+        <NavLink to={href}>
+          <div className="font-medium">{title}</div>
+          <div className="text-muted-foreground">{children}</div>
+        </NavLink>
+      </NavigationMenuLink>
+    </li>
+  );
+}
