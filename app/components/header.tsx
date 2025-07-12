@@ -1,12 +1,12 @@
-import { Logo } from '~/components/logo'
 import { Menu, X } from 'lucide-react'
 import { Button } from '~/components/ui/button'
 import React from 'react'
 import { cn } from '~/lib/utils'
 import { useScroll } from 'motion/react'
+import { NavLink } from 'react-router'
 
 const menuItems = [
-    { name: 'Features', href: '#link' },
+    { name: 'Profile', href: '/profile' },
     { name: 'Solution', href: '#link' },
     { name: 'Pricing', href: '#link' },
     { name: 'About', href: '#link' },
@@ -31,14 +31,14 @@ export const HeroHeader = () => {
                 data-state={menuState && 'active'}
                 className={cn('fixed z-20 w-full border-b transition-colors duration-150', scrolled && 'bg-background/50 backdrop-blur-3xl')}>
                 <div className="mx-auto max-w-5xl px-6 transition-all duration-300">
-                    <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
+                    <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-2">
                         <div className="flex w-full items-center justify-between gap-12 lg:w-auto">
-                            <a
-                                href="/"
+                            <NavLink
+                                to="/"
                                 aria-label="home"
                                 className="flex items-center space-x-2">
-                                <Logo />
-                            </a>
+                                <img src="/logo.png" className="h-12 w-12 lg:h-16 lg:w-16" alt="Logo BSI University" />
+                            </NavLink>
 
                             <button
                                 onClick={() => setMenuState(!menuState)}
@@ -52,11 +52,11 @@ export const HeroHeader = () => {
                                 <ul className="flex gap-8 text-sm">
                                     {menuItems.map((item, index) => (
                                         <li key={index}>
-                                            <a
-                                                href={item.href}
+                                            <NavLink
+                                                to={item.href}
                                                 className="text-muted-foreground hover:text-accent-foreground block duration-150">
                                                 <span>{item.name}</span>
-                                            </a>
+                                            </NavLink>
                                         </li>
                                     ))}
                                 </ul>
@@ -68,11 +68,11 @@ export const HeroHeader = () => {
                                 <ul className="space-y-6 text-base">
                                     {menuItems.map((item, index) => (
                                         <li key={index}>
-                                            <a
-                                                href={item.href}
+                                            <NavLink
+                                                to={item.href}
                                                 className="text-muted-foreground hover:text-accent-foreground block duration-150">
                                                 <span>{item.name}</span>
-                                            </a>
+                                            </NavLink>
                                         </li>
                                     ))}
                                 </ul>
@@ -82,16 +82,17 @@ export const HeroHeader = () => {
                                     asChild
                                     variant="outline"
                                     size="sm">
-                                    <a href="#">
+                                    <NavLink
+                                     to="#">
                                         <span>Login</span>
-                                    </a>
+                                    </NavLink>
                                 </Button>
                                 <Button
                                     asChild
                                     size="sm">
-                                    <a href="#">
+                                    <NavLink to="#">
                                         <span>Sign Up</span>
-                                    </a>
+                                    </NavLink>
                                 </Button>
                             </div>
                         </div>
