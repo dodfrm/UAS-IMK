@@ -37,6 +37,48 @@ const tentangItems = [
   },
 ];
 
+const akademikItems = [
+  {
+    title: "SIAKAD",
+    href: "https://students.bsi.ac.id/mahasiswa/login_akd.aspx",
+    description: "Sistem Informasi Akademik Mahasiswa",
+  },
+  {
+    title: "Penelitian",
+    href: "/penelitian",
+    description: "Aktivitas penelitian dan publikasi",
+  },
+  {
+    title: "Layanan Akademik",
+    href: "/layanan-akademik",
+    description: "Layanan akademik untuk mahasiswa",
+  },
+  {
+    title: "Kalender Akademik",
+    href: "/kalender-akademik",
+    description: "Jadwal penting akademik",
+  },
+];
+
+const psdkuItems = [
+  {
+    title: "PSDKU Karawang",
+    href: "/psdku/karawang",
+    description: "Program Studi di Luar Kampus Utama Karawang",
+  },
+  {
+    title: "PSDKU Bogor",
+    href: "/psdku/bogor",
+    description: "Program Studi di Luar Kampus Utama Bogor",
+  },
+  {
+    title: "PSDKU Sukabumi",
+    href: "/psdku/sukabumi",
+    description: "Program Studi di Luar Kampus Utama Sukabumi",
+  }
+ 
+];
+
 export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
@@ -125,6 +167,52 @@ export const HeroHeader = () => {
                         <NavLink to="/fakultas">Fakultas</NavLink>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
+
+                    {/* PSDKU */}
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>PSDKU</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid w-[400px] gap-4 p-4">
+                          {psdkuItems.map((item) => (
+                            <ListItem
+                              key={item.title}
+                              title={item.title}
+                              href={item.href}
+                            >
+                              {item.description}
+                            </ListItem>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+
+                    {/* Akademik */}
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Akademik</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid w-[350px] gap-4 p-4">
+                          {akademikItems.map((item) => (
+                            <ListItem
+                              key={item.title}
+                              title={item.title}
+                              href={item.href}
+                            >
+                              {item.description}
+                            </ListItem>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+
+                    {/* Hubungi kami */}
+                    <NavigationMenuItem>
+                      <NavigationMenuLink
+                        asChild
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <NavLink to="/hubungi-kami">Hubungi Kami</NavLink>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
                   </NavigationMenuList>
                 </NavigationMenu>
               </div>
@@ -171,12 +259,81 @@ export const HeroHeader = () => {
                 </Collapsible>
 
                 {/* Fakultas */}
-                <NavLink 
+                <NavLink
                   to="/fakultas"
-                    className="block py-3 text-lg font-medium hover:text-foreground"
-                    onClick={() => setMenuState(false)}
+                  className="block py-3 text-lg font-medium hover:text-foreground"
+                  onClick={() => setMenuState(false)}
                 >
                   Fakultas
+                </NavLink>
+
+                {/* PSDKU Collapsible */}
+                <Collapsible
+                  open={openCollapsible === "psdku"}
+                  onOpenChange={() => toggleCollapsible("psdku")}
+                  className="w-full space-y-2"
+                >
+                  <CollapsibleTrigger className="flex w-full items-center justify-between py-3 text-lg font-medium">
+                    PSDKU
+                    <ChevronDown
+                      className={cn(
+                        "h-5 w-5 transition-transform duration-200",
+                        openCollapsible === "psdku" ? "rotate-180" : ""
+                      )}
+                    />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="space-y-2 pl-4">
+                    {psdkuItems.map((item) => (
+                      <NavLink
+                        key={item.title}
+                        to={item.href}
+                        className="block py-2 text-muted-foreground hover:text-foreground"
+                        onClick={() => setMenuState(false)}
+                      >
+                        <div className="font-medium">{item.title}</div>
+                        <div className="text-sm">{item.description}</div>
+                      </NavLink>
+                    ))}
+                  </CollapsibleContent>
+                </Collapsible>
+
+                {/* Akademik Collapsible */}
+                <Collapsible
+                  open={openCollapsible === "akademik"}
+                  onOpenChange={() => toggleCollapsible("akademik")}
+                  className="w-full space-y-2"
+                >
+                  <CollapsibleTrigger className="flex w-full items-center justify-between py-3 text-lg font-medium">
+                    Akademik
+                    <ChevronDown
+                      className={cn(
+                        "h-5 w-5 transition-transform duration-200",
+                        openCollapsible === "akademik" ? "rotate-180" : ""
+                      )}
+                    />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="space-y-2 pl-4">
+                    {akademikItems.map((item) => (
+                      <NavLink
+                        key={item.title}
+                        to={item.href}
+                        className="block py-2 text-muted-foreground hover:text-foreground"
+                        onClick={() => setMenuState(false)}
+                      >
+                        <div className="font-medium">{item.title}</div>
+                        <div className="text-sm">{item.description}</div>
+                      </NavLink>
+                    ))}
+                  </CollapsibleContent>
+                </Collapsible>
+
+                {/* Hubungi Kami */}
+                <NavLink
+                  to="/hubungi-kami"
+                  className="block py-3 text-lg font-medium hover:text-foreground"
+                  onClick={() => setMenuState(false)}
+                >
+                  Hubungi Kami
                 </NavLink>
 
                 <div className="mt-8 flex flex-col space-y-4">
