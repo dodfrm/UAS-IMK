@@ -10,9 +10,10 @@ const mainLayout = layout("./routes/layout.tsx", [
   route("/profil", "routes/profile.tsx"),
   route("/fakultas", "routes/fakultas.tsx"),
   route("/fakultas/:fakultasSlug", "routes/jurusan.tsx"),
+  route("/psdku", "routes/psdku.tsx"), 
+  route("/psdku/:locationSlug/:programSlug", "routes/psdku-detail.tsx"),
   route("/kalender-akademik", "routes/kalender-akademik.tsx"),
 ]);
-
 export default [
     mainLayout,
     authLayout,

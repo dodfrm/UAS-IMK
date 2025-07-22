@@ -169,21 +169,14 @@ export const HeroHeader = () => {
                     </NavigationMenuItem>
 
                     {/* PSDKU */}
+                    {/* PSDKU */}
                     <NavigationMenuItem>
-                      <NavigationMenuTrigger>PSDKU</NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-4 p-4">
-                          {psdkuItems.map((item) => (
-                            <ListItem
-                              key={item.title}
-                              title={item.title}
-                              href={item.href}
-                            >
-                              {item.description}
-                            </ListItem>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
+                      <NavigationMenuLink
+                        asChild
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <NavLink to="/psdku">PSDKU</NavLink>
+                      </NavigationMenuLink>
                     </NavigationMenuItem>
 
                     {/* Akademik */}
