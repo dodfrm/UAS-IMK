@@ -26,9 +26,9 @@ const tentangItems = [
     description: "Sejarah dan visi misi Universitas BSI",
   },
   {
-    title: "Peraturan",
-    href: "/peraturan",
-    description: "Pedoman dan regulasi akademik",
+    title: "Berita",
+    href: "https://news.bsi.ac.id/",
+    description: "Berita terbaru seputar Universitas BSI",
   },
   {
     title: "Unit Bagian",

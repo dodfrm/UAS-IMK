@@ -11,6 +11,7 @@ const mainLayout = layout("./routes/layout.tsx", [
   route("/fakultas", "routes/jurusan.tsx"),
   route("/fakultas/:fakultasSlug/:programSlug", "routes/jurusan-detail.tsx"),
   route("/psdku", "routes/psdku.tsx"),
+  route("/unit-bagian", "routes/organisasi.tsx"),
   route("/psdku/:locationSlug/:programSlug", "routes/psdku-detail.tsx"),
   route("/kalender-akademik", "routes/kalender-akademik.tsx"),
   route("/hubungi-kami", "routes/hubungi-kami.tsx"),

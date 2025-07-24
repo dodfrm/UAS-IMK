@@ -44,13 +44,23 @@ export default function FakultasDetailPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-purple-900 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-20 text-white overflow-hidden">
+        {/* Background Image */}
+        <img
+          src="https://images.unsplash.com/photo-1607013407627-6ee814329547?q=80&w=664&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Background Program Studi"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        />
+
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-600 mix-blend-multiply" />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumbs */}
           <nav className="flex items-center text-sm text-blue-200 mb-6">
             <Link to="/" className="hover:text-white flex items-center">
-                          <Home className="w-4 h-4 mr-1" />
-            
+              <Home className="w-4 h-4 mr-1" />
               Beranda
             </Link>
             <ChevronRight className="w-4 h-4 mx-2" />
@@ -64,10 +74,12 @@ export default function FakultasDetailPage() {
             <ChevronRight className="w-4 h-4 mx-2" />
             <span className="text-white font-medium">{program.title}</span>
           </nav>
+
           <div className="flex items-center gap-4 mb-4">
             <GraduationCap className="h-10 w-10 text-purple-200" />
             <h1 className="text-5xl font-bold">{program.title}</h1>
           </div>
+
           <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
             <span className="px-3 py-1 bg-purple-700 rounded-full text-sm w-fit">
               {program.level}

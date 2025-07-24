@@ -1,39 +1,31 @@
-import type React from "react";
-
 import { useState } from "react";
-import {NavLink} from "react-router";
+import { NavLink } from "react-router";
 import { Button } from "~/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
+import { Card, CardContent } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Alert, AlertDescription } from "~/components/ui/alert";
 import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import { cn } from "~/lib/utils";
 
 interface RegisterFormData {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-export default function RegisterPage() {
+export default function RegisterForm({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   const [formData, setFormData] = useState<RegisterFormData>({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -43,34 +35,28 @@ export default function RegisterPage() {
       ...prev,
       [name]: value,
     }));
-    // Clear error when user starts typing
     if (error) setError("");
   };
 
   const validateForm = (): boolean => {
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.password ||
-      !formData.confirmPassword
-    ) {
-      setError("Please fill in all fields");
+    const { name, email, password, confirmPassword } = formData;
+    if (!name || !email || !password || !confirmPassword) {
+      setError("Mohon isi semua kolom");
       return false;
     }
 
-    if (!formData.email.includes("@")) {
-      setError("Please enter a valid email address");
+    if (!email.includes("@")) {
+      setError("Mohon masukkan alamat email yang valid");
       return false;
     }
 
-    if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long");
+    if (password.length < 6) {
+      setError("Kata sandi harus memiliki minimal 6 karakter");
       return false;
     }
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+    if (password !== confirmPassword) {
+      setError("Kata sandi tidak cocok");
       return false;
     }
 
@@ -88,57 +74,49 @@ export default function RegisterPage() {
     }
 
     try {
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Here you would typically make an API call to your registration endpoint
-      console.log("Registration attempt:", {
-        ...formData,
+      console.log("Pendaftaran:", {
+        name: formData.name,
+        email: formData.email,
         password: "[REDACTED]",
-        confirmPassword: "[REDACTED]",
       });
-
-      // Simulate successful registration
-      alert(
-        "Registration successful! Please check your email to verify your account."
-      );
+      alert("Pendaftaran berhasil!");
     } catch (err) {
-      setError("Registration failed. Please try again.");
+      setError("Pendaftaran gagal. Silakan coba lagi.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-8">
-      <Card className="w-full max-w-md lg:mx-auto">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">
-            Create an account
-          </CardTitle>
-          <CardDescription className="text-center">
-            Enter your information to get started
-          </CardDescription>
-        </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
+    <div className={cn("flex flex-col gap-6", className)} {...props}>
+      <Card className="overflow-hidden">
+        <CardContent className="grid p-0 md:grid-cols-2">
+          <form onSubmit={handleSubmit} className="p-6 md:p-8">
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col items-center text-center">
+                <h1 className="text-2xl font-bold">Buat Akun Baru</h1>
+                <p className="text-balance text-muted-foreground">
+                  Daftar untuk mulai menggunakan aplikasi
+                </p>
+              </div>
 
-            <div className="grid grid-cols-2 gap-4">
+              {error && (
+                <Alert variant="destructive">
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name</Label>
+                <Label htmlFor="name">Nama Lengkap</Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
-                    id="firstName"
-                    name="firstName"
+                    id="name"
+                    name="name"
                     type="text"
-                    placeholder="John"
-                    value={formData.firstName}
+                    placeholder="Nama Anda"
+                    value={formData.name}
                     onChange={handleInputChange}
                     className="pl-10"
                     required
@@ -147,139 +125,96 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name</Label>
+                <Label htmlFor="email">Email</Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    placeholder="Doe"
-                    value={formData.lastName}
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="nama@contoh.com"
+                    value={formData.email}
                     onChange={handleInputChange}
                     className="pl-10"
                     required
                   />
                 </div>
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="john.doe@example.com"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="pl-10"
-                  required
-                />
+              <div className="space-y-2">
+                <Label htmlFor="password">Kata Sandi</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Minimal 6 karakter"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className="pl-10 pr-10"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Create a password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className="pl-10 pr-10"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </button>
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Konfirmasi Kata Sandi</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Ulangi kata sandi"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    className="pl-10 pr-10"
+                    required
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm your password"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className="pl-10 pr-10"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </button>
-              </div>
-            </div>
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Mendaftarkan..." : "Daftar"}
+              </Button>
 
-            <div className="flex items-center space-x-2">
-              <input
-                id="terms"
-                type="checkbox"
-                className="rounded border-gray-300"
-                required
-              />
-              <Label htmlFor="terms" className="text-sm">
-                I agree to the{" "}
+              <div className="text-center text-sm">
+                Sudah punya akun?{" "}
                 <NavLink
-                  to="/terms"
-                  className="text-blue-600 hover:text-blue-500"
+                  to="/login"
+                  className="underline underline-offset-4 hover:text-primary"
                 >
-                  Terms of Service
-                </NavLink>{" "}
-                and{" "}
-                <NavLink
-                  to="/privacy"
-                  className="text-blue-600 hover:text-blue-500"
-                >
-                  Privacy Policy
+                  Masuk di sini
                 </NavLink>
-              </Label>
+              </div>
             </div>
-          </CardContent>
-
-          <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Creating account..." : "Create account"}
-            </Button>
-
-            <div className="text-center text-sm">
-              Already have an account?{" "}
-              <NavLink
-                to="/login"
-                className="text-blue-600 hover:text-blue-500 font-medium"
-              >
-                Sign in
-              </NavLink>
-            </div>
-          </CardFooter>
-        </form>
+          </form>
+          <div className="relative hidden bg-muted md:block">
+            <img
+              src="/login-register.jpeg"
+              alt="Gambar"
+              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+            />
+          </div>
+        </CardContent>
       </Card>
+      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
+        Dengan mendaftar, Anda menyetujui{" "}
+        <NavLink to="/terms">Syarat Layanan</NavLink> dan{" "}
+        <NavLink to="/privacy">Kebijakan Privasi</NavLink> kami.
+      </div>
     </div>
   );
 }

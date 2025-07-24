@@ -13,10 +13,21 @@ export default function FakultasPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-purple-900 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative py-20 text-white overflow-hidden">
+        {/* Background Image */}
+        <img
+          src="https://images.unsplash.com/photo-1607013407627-6ee814329547?q=80&w=664&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Background Fakultas dan Program Studi"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        />
+
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-600 mix-blend-multiply" />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Breadcrumbs */}
-          <nav className="flex items-center text-sm text-blue-200 mb-6">
+          <nav className="flex items-center text-sm text-blue-200 mb-6 lg:mb-0">
             <Link to="/" className="hover:text-white flex items-center">
               <Home className="w-4 h-4 mr-1" />
               Beranda
@@ -24,6 +35,7 @@ export default function FakultasPage() {
             <ChevronRight className="w-4 h-4 mx-2" />
             <span className="text-white font-medium">Fakultas</span>
           </nav>
+
           <GraduationCap className="h-16 w-16 mx-auto mb-6 text-purple-200" />
           <h1 className="text-5xl font-bold mb-6">
             Fakultas dan Program Studi
