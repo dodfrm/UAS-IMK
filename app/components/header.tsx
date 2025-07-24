@@ -50,7 +50,10 @@ const akademikItems = [
   {
     category: "Layanan",
     links: [
-      { title: "BINTANG SEKOLAH", href: "https://bintangsekolahindonesia.com/" },
+      {
+        title: "BINTANG SEKOLAH",
+        href: "https://bintangsekolahindonesia.com/",
+      },
       { title: "PMB UBSI", href: "https://pmb.bsi.ac.id/" },
       { title: "ALUMNI UBSI", href: "http://alumni.bsi.ac.id/" },
       { title: "UJIAN ONLINE", href: "http://www.bsi.ac.id/ujian/" },
@@ -62,15 +65,27 @@ const akademikItems = [
     links: [
       { title: "RUANG DOSEN", href: "http://staff.bsi.ac.id/" },
       { title: "KALENDER AKADEMIK", href: "/kalender-akademik" },
-      { title: "PANDUAN AKADEMIK", href: "https://www.bsi.ac.id/ubsi/assets/file/Pedoman%20Akademik%20UBSI_revisi_1920.pdf" },
-      { title: "PROFIL DOSEN", href: "https://www.bsi.ac.id/ubsi/psdku-kota-sukabumi-sistem-informasi-d3.ajax#" },
+      {
+        title: "PANDUAN AKADEMIK",
+        href: "https://www.bsi.ac.id/ubsi/assets/file/Pedoman%20Akademik%20UBSI_revisi_1920.pdf",
+      },
+      {
+        title: "PROFIL DOSEN",
+        href: "https://www.bsi.ac.id/ubsi/psdku-kota-sukabumi-sistem-informasi-d3.ajax#",
+      },
     ],
   },
   {
     category: "Alumni",
     links: [
-      { title: "VERIFIKASI IJAZAH", href: "http://alumni.bsi.ac.id/cekijazah.html" },
-      { title: "LEGALISIR IJAZAH", href: "http://alumni.bsi.ac.id/alumni.html" },
+      {
+        title: "VERIFIKASI IJAZAH",
+        href: "http://alumni.bsi.ac.id/cekijazah.html",
+      },
+      {
+        title: "LEGALISIR IJAZAH",
+        href: "http://alumni.bsi.ac.id/alumni.html",
+      },
       { title: "BUKU WISUDA", href: "http://alumni.bsi.ac.id/bukuwisuda.html" },
     ],
   },
@@ -91,8 +106,7 @@ const psdkuItems = [
     title: "PSDKU Sukabumi",
     href: "/psdku/sukabumi",
     description: "Program Studi di Luar Kampus Utama Sukabumi",
-  }
- 
+  },
 ];
 
 export const HeroHeader = () => {
@@ -185,7 +199,6 @@ export const HeroHeader = () => {
                     </NavigationMenuItem>
 
                     {/* PSDKU */}
-                    {/* PSDKU */}
                     <NavigationMenuItem>
                       <NavigationMenuLink
                         asChild
@@ -198,29 +211,34 @@ export const HeroHeader = () => {
                     {/* Akademik */}
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Akademik</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                          <div className="grid w-[600px] grid-cols-4 gap-x-6 gap-y-4 p-4 lg:w-[800px]">
-                            {akademikItems.map((group) => (
-                              <div key={group.category} className="flex flex-col space-y-2">
-                                <h3 className="font-semibold text-foreground">{group.category}</h3>
-                                <ul className="space-y-1">
-                                  {group.links.map((item) => (
-                                    <li key={item.title}>
-                                      <NavigationMenuLink asChild>
-                                        <NavLink
-                                          to={item.href}
-                                          className="block select-none rounded-md p-2 text-sm leading-none text-muted-foreground no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                        >
-                                          {item.title}
-                                        </NavLink>
-                                      </NavigationMenuLink>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ))}
-                          </div>
-                        </NavigationMenuContent>
+                      <NavigationMenuContent>
+                        <div className="grid w-[600px] grid-cols-4 gap-x-6 gap-y-4 p-4 lg:w-[780px]">
+                          {akademikItems.map((group) => (
+                            <div
+                              key={group.category}
+                              className="flex flex-col space-y-2"
+                            >
+                              <h3 className="font-semibold text-foreground">
+                                {group.category}
+                              </h3>
+                              <ul className="space-y-1">
+                                {group.links.map((item) => (
+                                  <li key={item.title}>
+                                    <NavigationMenuLink asChild>
+                                      <NavLink
+                                        to={item.href}
+                                        className="block select-none rounded-md p-2 text-sm leading-none text-muted-foreground no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                      >
+                                        {item.title}
+                                      </NavLink>
+                                    </NavigationMenuLink>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </NavigationMenuContent>
                     </NavigationMenuItem>
 
                     {/* Hubungi kami */}
@@ -240,7 +258,7 @@ export const HeroHeader = () => {
             {/* Mobile Menu */}
             <div
               className={cn(
-                "fixed inset-0 top-[72px] z-10 h-[calc(100vh-72px)] w-full bg-background/95 backdrop-blur-lg transition-all duration-300 ease-in-out lg:hidden",
+                "fixed inset-0 top-[72px] z-10 h-[calc(100vh-72px)] w-full bg-background/95 backdrop-blur-lg transition-all duration-300 ease-in-out lg:hidden overflow-y-auto", // Added overflow-y-auto here
                 menuState
                   ? "translate-x-0 opacity-100"
                   : "-translate-x-full opacity-0"
@@ -332,21 +350,23 @@ export const HeroHeader = () => {
                     />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="space-y-2 pl-4">
-                      {akademikItems.map((group) => (
-                        <div key={group.category} className="pt-2">
-                          <p className="font-bold text-sm text-foreground">{group.category}</p>
-                          {group.links.map((item) => (
-                            <NavLink
-                              key={item.title}
-                              to={item.href}
-                              className="block py-2 pl-2 text-muted-foreground hover:text-foreground"
-                              onClick={() => setMenuState(false)}
-                            >
-                              {item.title}
-                            </NavLink>
-                          ))}
-                        </div>
-                      ))}
+                    {akademikItems.map((group) => (
+                      <div key={group.category} className="pt-2">
+                        <p className="font-bold text-sm text-foreground">
+                          {group.category}
+                        </p>
+                        {group.links.map((item) => (
+                          <NavLink
+                            key={item.title}
+                            to={item.href}
+                            className="block py-2 pl-2 text-muted-foreground hover:text-foreground"
+                            onClick={() => setMenuState(false)}
+                          >
+                            {item.title}
+                          </NavLink>
+                        ))}
+                      </div>
+                    ))}
                   </CollapsibleContent>
                 </Collapsible>
 
@@ -359,7 +379,9 @@ export const HeroHeader = () => {
                   Hubungi Kami
                 </NavLink>
 
-                <div className="mt-8 flex flex-col space-y-4">
+                <div className="mt-8 flex flex-col space-y-4 pb-8">
+                  {" "}
+                  {/* Added pb-8 for bottom padding */}
                   <Button asChild variant="outline" size="lg">
                     <NavLink to="/login" onClick={() => setMenuState(false)}>
                       <span>Masuk</span>

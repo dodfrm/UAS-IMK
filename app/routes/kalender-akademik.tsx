@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import {
   Calendar,
   ChevronLeft,
@@ -7,6 +8,7 @@ import {
   MapPin,
   Users,
   Filter,
+  Home,
 } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
@@ -107,6 +109,15 @@ export default function AcademicCalendar() {
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-r from-indigo-900 to-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Breadcrumbs */}
+          <nav className="flex items-center text-sm text-blue-200 mb-6">
+            <Link to="/" className="hover:text-white flex items-center">
+              <Home className="w-4 h-4 mr-1" />
+              Beranda
+            </Link>
+            <ChevronRight className="w-4 h-4 mx-2" />
+            <span className="text-white font-medium">Fakultas</span>
+          </nav>
           <div className="text-center">
             <Calendar className="h-16 w-16 mx-auto mb-6 text-indigo-200" />
             <h1 className="text-5xl font-bold mb-6">Kalender Akademik</h1>

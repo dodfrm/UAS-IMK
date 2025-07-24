@@ -1,4 +1,15 @@
-import { GraduationCap, Target, Eye, History, Quote } from "lucide-react";
+import {
+  GraduationCap,
+  Target,
+  Eye,
+  History,
+  Quote,
+  ChevronsRight,
+  ChevronRight,
+  Home,
+} from "lucide-react";
+import { Link } from "react-router";
+
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 export default function Profile() {
   return (
@@ -7,10 +18,19 @@ export default function Profile() {
         {/* Hero Section */}
         <section className="relative py-20 bg-gradient-to-r from-blue-900 to-blue-600 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Breadcrumbs */}
+            <nav className="flex items-center text-sm text-blue-200 mb-6">
+              <Link to="/" className="hover:text-white flex items-center">
+                <Home className="w-4 h-4 mr-1" />
+                Beranda
+              </Link>
+              <ChevronRight className="w-4 h-4 mx-2" />
+              <span className="text-white font-medium">Profil</span>
+            </nav>
             <div className="text-center">
               <GraduationCap className="h-16 w-16 mx-auto mb-6 text-blue-200" />
               <h1 className="text-5xl font-bold mb-6">
-                Profile BSI University
+                Profil Universitas BSI
               </h1>
               <p className="text-xl max-w-3xl mx-auto leading-relaxed capitalize">
                 Mengenal lebih dekat BSI University, institusi pendidikan tinggi

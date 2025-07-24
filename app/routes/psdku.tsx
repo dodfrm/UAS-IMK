@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import { Link } from "react-router";
-import { Building, BookOpen, ChevronsRight } from "lucide-react";
+import {
+  Building,
+  BookOpen,
+  ChevronsRight,
+  ChevronRight,
+  Home,
+} from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
@@ -15,15 +21,27 @@ export default function PSDKUPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-r from-blue-900 to-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Building className="h-16 w-16 mx-auto mb-6 text-blue-200" />
-          <h1 className="text-5xl font-bold mb-6">
-            Program Studi di Luar Kampus Utama (PSDKU)
-          </h1>
-          <p className="text-xl max-w-3xl mx-auto leading-relaxed">
-            Temukan program studi unggulan kami yang tersebar di berbagai kota,
-            mendekatkan pendidikan berkualitas ke lokasi Anda.
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Breadcrumbs */}
+          <nav className="flex items-center text-sm text-blue-200 mb-6">
+            <Link to="/" className="hover:text-white flex items-center">
+              <Home className="w-4 h-4 mr-1" />
+              Beranda
+            </Link>
+            <ChevronRight className="w-4 h-4 mx-2" />
+            <span className="text-white font-medium">PSDKU</span>
+          </nav>
+
+          <div className="text-center">
+            <Building className="h-16 w-16 mx-auto mb-6 text-blue-200" />
+            <h1 className="text-5xl font-bold mb-6">
+              Program Studi di Luar Kampus Utama (PSDKU)
+            </h1>
+            <p className="text-xl max-w-3xl mx-auto leading-relaxed">
+              Temukan program studi unggulan kami yang tersebar di berbagai
+              kota, mendekatkan pendidikan berkualitas ke lokasi Anda.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -64,7 +82,8 @@ export default function PSDKUPage() {
                   {selectedLocation.name}
                 </h2>
                 <p className="text-gray-600 mb-6">
-                  Berikut adalah daftar program studi yang tersedia di lokasi ini.
+                  Berikut adalah daftar program studi yang tersedia di lokasi
+                  ini.
                 </p>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -78,7 +97,9 @@ export default function PSDKUPage() {
                           <BookOpen className="h-8 w-8 text-blue-600" />
                           <Badge variant="secondary">{program.level}</Badge>
                         </div>
-                        <CardTitle className="text-xl">{program.title}</CardTitle>
+                        <CardTitle className="text-xl">
+                          {program.title}
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <Link
