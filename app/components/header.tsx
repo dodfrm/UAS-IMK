@@ -91,24 +91,6 @@ const akademikItems = [
   },
 ];
 
-const psdkuItems = [
-  {
-    title: "PSDKU Karawang",
-    href: "/psdku/karawang",
-    description: "Program Studi di Luar Kampus Utama Karawang",
-  },
-  {
-    title: "PSDKU Bogor",
-    href: "/psdku/bogor",
-    description: "Program Studi di Luar Kampus Utama Bogor",
-  },
-  {
-    title: "PSDKU Sukabumi",
-    href: "/psdku/sukabumi",
-    description: "Program Studi di Luar Kampus Utama Sukabumi",
-  },
-];
-
 export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
@@ -304,35 +286,14 @@ export const HeroHeader = () => {
                   Fakultas
                 </NavLink>
 
-                {/* PSDKU Collapsible */}
-                <Collapsible
-                  open={openCollapsible === "psdku"}
-                  onOpenChange={() => toggleCollapsible("psdku")}
-                  className="w-full space-y-2"
+                {/* PSDKU */}
+                <NavLink
+                  to="/psdku"
+                  className="block py-3 text-lg font-medium hover:text-foreground"
+                  onClick={() => setMenuState(false)}
                 >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between py-3 text-lg font-medium">
-                    PSDKU
-                    <ChevronDown
-                      className={cn(
-                        "h-5 w-5 transition-transform duration-200",
-                        openCollapsible === "psdku" ? "rotate-180" : ""
-                      )}
-                    />
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="space-y-2 pl-4">
-                    {psdkuItems.map((item) => (
-                      <NavLink
-                        key={item.title}
-                        to={item.href}
-                        className="block py-2 text-muted-foreground hover:text-foreground"
-                        onClick={() => setMenuState(false)}
-                      >
-                        <div className="font-medium">{item.title}</div>
-                        <div className="text-sm">{item.description}</div>
-                      </NavLink>
-                    ))}
-                  </CollapsibleContent>
-                </Collapsible>
+                  PSDKU
+                </NavLink>
 
                 {/* Akademik Collapsible */}
                 <Collapsible
