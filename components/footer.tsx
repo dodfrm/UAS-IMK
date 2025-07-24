@@ -3,7 +3,7 @@
 import React from 'react';
 import type { ComponentProps, ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { FacebookIcon, FrameIcon, InstagramIcon, LinkedinIcon, YoutubeIcon } from 'lucide-react';
+import { FacebookIcon, InstagramIcon, YoutubeIcon } from 'lucide-react';
 
 interface FooterLink {
 	title: string;
@@ -17,42 +17,36 @@ interface FooterSection {
 }
 
 const footerLinks: FooterSection[] = [
-	{
-		label: 'Product',
-		links: [
-			{ title: 'Features', href: '#features' },
-			{ title: 'Pricing', href: '#pricing' },
-			{ title: 'Testimonials', href: '#testimonials' },
-			{ title: 'Integration', href: '/' },
-		],
-	},
-	{
-		label: 'Company',
-		links: [
-			{ title: 'FAQs', href: '/faqs' },
-			{ title: 'About Us', href: '/about' },
-			{ title: 'Privacy Policy', href: '/privacy' },
-			{ title: 'Terms of Services', href: '/terms' },
-		],
-	},
-	{
-		label: 'Resources',
-		links: [
-			{ title: 'Blog', href: '/blog' },
-			{ title: 'Changelog', href: '/changelog' },
-			{ title: 'Brand', href: '/brand' },
-			{ title: 'Help', href: '/help' },
-		],
-	},
-	{
-		label: 'Social Links',
-		links: [
-			{ title: 'Facebook', href: '#', icon: FacebookIcon },
-			{ title: 'Instagram', href: '#', icon: InstagramIcon },
-			{ title: 'Youtube', href: '#', icon: YoutubeIcon },
-			{ title: 'LinkedIn', href: '#', icon: LinkedinIcon },
-		],
-	},
+  {
+    label: "",
+    links: [
+      { title: "", href: "" },
+    ],
+  },
+  {
+    label: "Tentang UBSI",
+    links: [
+      { title: "Profil", href: "/profil" },
+      { title: "Berita", href: "https://news.bsi.ac.id/" },
+      { title: "Unit Bagian", href: "/unit-bagian" },
+    ],
+  },
+  {
+    label: "Fakultas",
+    links: [
+      { title: "Teknik & Informatika", href: "/fakultas" },
+      { title: "Ekonomi & Bisnis", href: "/fakultas" },
+      { title: "Komunikasi & Bahasa", href: "/fakultas" },
+    ],
+  },
+  {
+    label: "Sosial Media",
+    links: [
+      { title: "Facebook", href: "#", icon: FacebookIcon },
+      { title: "Instagram", href: "#", icon: InstagramIcon },
+      { title: "Youtube", href: "#", icon: YoutubeIcon },
+    ],
+  },
 ];
 
 export function Footer() {
@@ -64,7 +58,7 @@ export function Footer() {
 				<AnimatedContainer className="space-y-4">
 					<img src="/logo.png" className="h-12 w-12 md:h-18 md:w-18" alt="Logo BSI University" />
 					<p className="text-muted-foreground mt-8 text-sm md:mt-0">
-						© {new Date().getFullYear()} Asme. All rights reserved.
+						© {new Date().getFullYear()} UBSI. All rights reserved.
 					</p>
 				</AnimatedContainer>
 
