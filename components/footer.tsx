@@ -18,12 +18,6 @@ interface FooterSection {
 
 const footerLinks: FooterSection[] = [
   {
-    label: "",
-    links: [
-      { title: "", href: "" },
-    ],
-  },
-  {
     label: "Tentang UBSI",
     links: [
       { title: "Profil", href: "/profil" },
