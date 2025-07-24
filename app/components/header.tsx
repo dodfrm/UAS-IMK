@@ -1,3 +1,5 @@
+// app/components/header.tsx (modified)
+
 import React from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { NavLink } from "react-router";
@@ -18,6 +20,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
 import { Button } from "~/components/ui/button";
+import { Search } from "~/components/ui/search";
 
 const tentangItems = [
   {
@@ -247,6 +250,9 @@ export const HeroHeader = () => {
               )}
             >
               <div className="container mx-auto px-4 py-6">
+                <div className="mb-4">
+                  <Search />
+                </div>
                 {/* Tentang UBSI Collapsible */}
                 <Collapsible
                   open={openCollapsible === "tentang"}
@@ -359,6 +365,9 @@ export const HeroHeader = () => {
 
             {/* Desktop Auth Buttons */}
             <div className="hidden lg:flex items-center gap-4">
+              <div className="w-full">
+                <Search />
+              </div>
               <Button asChild variant="outline" size="lg">
                 <NavLink to="/login">
                   <span>Masuk</span>
