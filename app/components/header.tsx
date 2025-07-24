@@ -39,24 +39,40 @@ const tentangItems = [
 
 const akademikItems = [
   {
-    title: "SIAKAD",
-    href: "https://students.bsi.ac.id/mahasiswa/login_akd.aspx",
-    description: "Sistem Informasi Akademik Mahasiswa",
+    category: "Penelitian",
+    links: [
+      { title: "LPPM", href: "http://lppm.bsi.ac.id/" },
+      { title: "E-LIBRARY", href: "http://elibrary.bsi.ac.id/" },
+      { title: "E-JOURNAL", href: "http://ejournal.bsi.ac.id/" },
+      { title: "REPOSITORY", href: "https://repository.bsi.ac.id/" },
+    ],
   },
   {
-    title: "Penelitian",
-    href: "/penelitian",
-    description: "Aktivitas penelitian dan publikasi",
+    category: "Layanan",
+    links: [
+      { title: "BINTANG SEKOLAH", href: "https://bintangsekolahindonesia.com/" },
+      { title: "PMB UBSI", href: "https://pmb.bsi.ac.id/" },
+      { title: "ALUMNI UBSI", href: "http://alumni.bsi.ac.id/" },
+      { title: "UJIAN ONLINE", href: "http://www.bsi.ac.id/ujian/" },
+      { title: "E-LEARNING", href: "http://elearning.bsi.ac.id/" },
+    ],
   },
   {
-    title: "Layanan Akademik",
-    href: "/layanan-akademik",
-    description: "Layanan akademik untuk mahasiswa",
+    category: "Akademik",
+    links: [
+      { title: "RUANG DOSEN", href: "http://staff.bsi.ac.id/" },
+      { title: "KALENDER AKADEMIK", href: "/kalender-akademik" },
+      { title: "PANDUAN AKADEMIK", href: "https://www.bsi.ac.id/ubsi/assets/file/Pedoman%20Akademik%20UBSI_revisi_1920.pdf" },
+      { title: "PROFIL DOSEN", href: "https://www.bsi.ac.id/ubsi/psdku-kota-sukabumi-sistem-informasi-d3.ajax#" },
+    ],
   },
   {
-    title: "Kalender Akademik",
-    href: "/kalender-akademik",
-    description: "Jadwal penting akademik",
+    category: "Alumni",
+    links: [
+      { title: "VERIFIKASI IJAZAH", href: "http://alumni.bsi.ac.id/cekijazah.html" },
+      { title: "LEGALISIR IJAZAH", href: "http://alumni.bsi.ac.id/alumni.html" },
+      { title: "BUKU WISUDA", href: "http://alumni.bsi.ac.id/bukuwisuda.html" },
+    ],
   },
 ];
 
@@ -169,39 +185,42 @@ export const HeroHeader = () => {
                     </NavigationMenuItem>
 
                     {/* PSDKU */}
+                    {/* PSDKU */}
                     <NavigationMenuItem>
-                      <NavigationMenuTrigger>PSDKU</NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-4 p-4">
-                          {psdkuItems.map((item) => (
-                            <ListItem
-                              key={item.title}
-                              title={item.title}
-                              href={item.href}
-                            >
-                              {item.description}
-                            </ListItem>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
+                      <NavigationMenuLink
+                        asChild
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <NavLink to="/psdku">PSDKU</NavLink>
+                      </NavigationMenuLink>
                     </NavigationMenuItem>
 
                     {/* Akademik */}
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>Akademik</NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid w-[350px] gap-4 p-4">
-                          {akademikItems.map((item) => (
-                            <ListItem
-                              key={item.title}
-                              title={item.title}
-                              href={item.href}
-                            >
-                              {item.description}
-                            </ListItem>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
+                        <NavigationMenuContent>
+                          <div className="grid w-[600px] grid-cols-4 gap-x-6 gap-y-4 p-4 lg:w-[800px]">
+                            {akademikItems.map((group) => (
+                              <div key={group.category} className="flex flex-col space-y-2">
+                                <h3 className="font-semibold text-foreground">{group.category}</h3>
+                                <ul className="space-y-1">
+                                  {group.links.map((item) => (
+                                    <li key={item.title}>
+                                      <NavigationMenuLink asChild>
+                                        <NavLink
+                                          to={item.href}
+                                          className="block select-none rounded-md p-2 text-sm leading-none text-muted-foreground no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                        >
+                                          {item.title}
+                                        </NavLink>
+                                      </NavigationMenuLink>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        </NavigationMenuContent>
                     </NavigationMenuItem>
 
                     {/* Hubungi kami */}
@@ -313,17 +332,21 @@ export const HeroHeader = () => {
                     />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="space-y-2 pl-4">
-                    {akademikItems.map((item) => (
-                      <NavLink
-                        key={item.title}
-                        to={item.href}
-                        className="block py-2 text-muted-foreground hover:text-foreground"
-                        onClick={() => setMenuState(false)}
-                      >
-                        <div className="font-medium">{item.title}</div>
-                        <div className="text-sm">{item.description}</div>
-                      </NavLink>
-                    ))}
+                      {akademikItems.map((group) => (
+                        <div key={group.category} className="pt-2">
+                          <p className="font-bold text-sm text-foreground">{group.category}</p>
+                          {group.links.map((item) => (
+                            <NavLink
+                              key={item.title}
+                              to={item.href}
+                              className="block py-2 pl-2 text-muted-foreground hover:text-foreground"
+                              onClick={() => setMenuState(false)}
+                            >
+                              {item.title}
+                            </NavLink>
+                          ))}
+                        </div>
+                      ))}
                   </CollapsibleContent>
                 </Collapsible>
 
